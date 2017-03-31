@@ -13,8 +13,8 @@ typedef struct{
 
 
 // recurso critico modulo controllador aereo
-Tship TvectorPista[2],TvectorPrueba[N];
-int Ind=0,Ind2=0;
+Tship TvectorPista[2],TvectorPrueba[N],TvectorHangar[N];
+int Ind=0,Ind2=0,Ind3=0;
 ////////////////////////////////////////////
 
 sem_t mutex,full,empty,ship;
@@ -48,6 +48,12 @@ void *AirController(void *arg){
                     }//end if
                 }//end if-else
             }//end if-else
+
+            if(TvectorPista[1].type==0 && TvectorPrueba[Ind2].value*100>=300){
+                TvectorPista[1].value=TvectorPrueba[Ind2].value;
+                TvectorPista[1].type=TvectorPrueba[Ind2].type;
+                Ind2++;
+            }//end if
 
             if(Ind2==N){
                 Ind2=0;
